@@ -9,7 +9,7 @@ This project uses Actix Web to provide an API endpoint that validates Ethereum t
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/your_username/your_project.git
-cd your_project
+git clone https://github.com/chimmykk/txnvalidator
+cd txnvalidator
 cargo build --release
 cargo run
