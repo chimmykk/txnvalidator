@@ -3,7 +3,7 @@ use reqwest::Client;
 
 #[get("/validatetxn/{txhash}")]
 async fn validate_txn(txhash: web::Path<String>) -> impl Responder {
-    let api_key = "APUVAUXICC2927IVW8RDN4W6Q6FWTFNHV8"; // Replace with your Taikoscan API key
+    let api_key = "update"; // Replace with your Taikoscan API key
     let url = format!(
         "https://api.taikoscan.io/api?module=transaction&action=gettxreceiptstatus&txhash={}&apikey={}",
         txhash,
