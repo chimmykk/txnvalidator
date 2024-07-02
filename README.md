@@ -1,6 +1,6 @@
-# Rust API for Ethereum Transaction Validation
+# Rust API for Taiko Transaction Validation
 
-This project uses Actix Web to provide an API endpoint that validates Ethereum transaction hashes. It queries Taikoscan API for transaction status based on provided hashes. 
+This project uses Actix Web to provide an API endpoint that validates Taiko transaction hashes. It queries Taikoscan API for transaction status based on provided hashes. 
 
 ## Setup and Usage
 
