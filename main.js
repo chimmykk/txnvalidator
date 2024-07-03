@@ -1,30 +1,29 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
-const apiKey = 'none';
-const taikoscanUrl = 'https://api.taikoscan.io/api';
+app.get('/verifytxn/:address', async (req, res) => {
+    try {
+        const { address } = req.params;
+        const apiKey = '';
+        const apiUrl = `https://api.taikoscan.io/api?module=account&action=txlist&address=${address}&sort=desc&apikey=${apiKey}`;
 
-app.get('/validatetxn/:address/:txhash', async (req, res) => {
-  const { address, txhash } = req.params;
+        const response = await axios.get(apiUrl);
+        const transactions = response.data.result.slice(0, 5);
 
-  try {
-    const url = `${taikoscanUrl}?module=transaction&action=gettxreceiptstatus&txhash=${txhash}&apikey=${apiKey}`;
-    const response = await axios.get(url);
+        const extractedData = transactions.map(tx => ({
+            to: tx.to,
+            txReceiptStatus: tx.txreceipt_status
+        }));
 
-    if (response.data.status === "1") {
-      res.status(200).json({ status: 'success', message: 'Transaction was successful' });
-    } else {
-      res.status(200).json({ status: 'failed', message: 'Transaction failed or is pending' });
+        res.json({ transactions: extractedData });
+    } catch (error) {
+        console.error('Error fetching transaction data:', error);
+        res.status(500).json({ error: 'Failed to fetch transaction data' });
     }
-  } catch (error) {
-    console.error('Error fetching transaction status:', error);
-    res.status(500).json({ status: 'error', message: 'Failed to fetch transaction status' });
-  }
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
